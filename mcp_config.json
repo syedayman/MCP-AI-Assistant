@@ -1,5 +1,6 @@
 {
-    "mcpServers": {
+  "logLevel": "ERROR",  
+  "mcpServers": {
       "playwright": {
         "command": "npx",
         "args": [
@@ -10,7 +11,8 @@
       "command": "npx",
       "args": [
         "-y",
-        "@openbnb/mcp-server-airbnb"
+        "@openbnb/mcp-server-airbnb",
+        "--ignore-robots-txt"
       ]
     }
     }

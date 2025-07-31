@@ -1,24 +1,27 @@
 import asyncio
 import os
+import logging
 
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
-from langchain_groq import ChatGroq
 from mcp_use import MCPClient, MCPAgent
 
-async def run_memory_chat():
+logging.getLogger("mcp_use").setLevel(logging.ERROR)
+logging.getLogger("langchain").setLevel(logging.ERROR)
+logging.getLogger("mcp").setLevel(logging.ERROR)
+
+
+async def run_chat():
     """ Run a chat using MCPAgent's built in conversation memory. """
 
     load_dotenv()
-    #os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
-    os.environ["GROQ_API_KEY"] = os.getenv("GROQ_API_KEY")
+    os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
 
     config_file = "mcp_config.json"
     print("Initializing MCP server...")
 
     client = MCPClient.from_config_file(config_file)
-    #llm = ChatOpenAI(model="gpt-4o")
-    llm = ChatGroq(model="qwen-qwq-32b")
+    llm = ChatOpenAI(model="gpt-4o")
     
     agent = MCPAgent(
         llm=llm,
@@ -27,10 +30,10 @@ async def run_memory_chat():
         memory_enabled=True,
     )
 
-    print("\n ~~~~~ Chat with any MCP server ~~~~~")
+    print("\n~~~~~~~~ Chat with any MCP server ~~~~~~~~")
     print("Type 'exit' to end the chat")
     print("Type 'clear' to clear conversation history")
-    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")
+    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")
 
     try:
         while True:
@@ -59,6 +62,6 @@ async def run_memory_chat():
             await client.close_all_sessions()
 
 if __name__ == "__main__":
-    asyncio.run(run_memory_chat())
+    asyncio.run(run_chat())
 
 
