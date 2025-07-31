@@ -11,5 +11,6 @@ uv venv
 .venv\Scripts\activate 
 ```
 4. Install dependencies with `uv sync`
-5. Set up environment variables (OPENAI_API_KEY)
-6. Run the application using `uv run app.py`
+5. Set up environment variables in your `.env` file in this format
+```OPENAI_API_KEY = your_api_key_here```
+7. Run the application using `uv run app.py`
